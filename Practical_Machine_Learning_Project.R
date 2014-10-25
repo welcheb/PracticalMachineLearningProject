@@ -32,14 +32,17 @@ cols_no_DIV0 = sapply(pml_training_original[,colnames_predictors],
 colnames_predictors = colnames_predictors[cols_no_DIV0]
 
 ## @knitr Practical_Machine_Learning_Project_section_2
+
+# create a Random Forest model
 require(caret)
+require(randomForest)
 pml_training = pml_training_original[,colnames_predictors]
 pml_training$classe = pml_training_original$classe
 modelFit = randomForest(classe ~ ., data=pml_training)
 
 ## @knitr Practical_Machine_Learning_Project_section_3
 
-# predict pml test data
+# predict using pml test data
 pml_testing = pml_testing_original[,c(colnames_predictors)]
 pred = predict(modelFit, newdata=pml_testing)
 pred
