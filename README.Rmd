@@ -1,0 +1,61 @@
+Practical Machine Learning Project
+========================================================
+
+```{r setup, echo=FALSE}
+opts_chunk$set(echo = FALSE, cache=FALSE, comment="")
+read_chunk('Practical_Machine_Learning_Project.R')
+```
+
+```{r Statistical_Inference_Project_part_2_setup, echo=FALSE}
+```
+
+## Part 2: Analysis of TootGrowth Data:
+
+## Data Description
+### The Effect of Vitamin C on Tooth Growth in Guinea Pigs
+### The response is the length of odontoblasts (teeth) in each of 10 guinea pigs at each of three dose levels of Vitamin C (0.5, 1, and 2 mg) with each of two delivery methods (orange juice or ascorbic acid).
+
+### 1. Load the ToothGrowth data and perform some basic exploratory data analyses
+```{r Statistical_Inference_Project_part_2_section_1, echo=TRUE, fig.width=8, fig.height=5, dpi=120}
+```
+
+### 2. Provide a basic summary of the data.
+```{r Statistical_Inference_Project_part_2_section_2, echo=TRUE, fig.width=8, fig.height=5, dpi=120}
+```
+
+```{r Statistical_Inference_Project_part_2_section_3, echo=TRUE, fig.width=8, fig.height=5, dpi=120}
+```
+### 3. Use confidence intervals and hypothesis tests to compare tooth growth by Delivery Method and Dose. (Use the techniques from class even if there's other approaches worth considering)
+#### Selected Method: Two Sample t-statistic confidence intervals
+#### Note: Multiple comparisons should typically use bonferroni correction, but no correction is used here
+```{r Statistical_Inference_Project_part_2_section_4, echo=TRUE, fig.width=8, fig.height=5, dpi=120}
+```
+
+### Compare graphical display of confidence intervals with p-values from pairwise t-tests
+```{r Statistical_Inference_Project_part_2_section_5, echo=TRUE, fig.width=8, fig.height=5, dpi=120}
+```
+
+### 4. State your conclusions and the assumptions needed for your conclusions.
+
+### Assumptions
+#### 1. Underlying populations being compared follow a normal distribution
+#### 2. Separate sample sets are independent and identically distributed (iid) (variances treated as equal, no Welch/Satterthwaite approximation for the degrees of freedom)
+#### 3. There are no paired/repeated measures in the data set, i.e. 60 different guinea pigs
+#### 4. Hypothesis tests use 95% confidence intervals (p-value = 5%) without any correction for multilpe comparisons such as Bonferroni correction
+
+### Conclusions are provided for each Delivery Method and Dose combination based on the numerical values for the lower and upper bounds of the 95% confidenced interval of the difference of means. If the interval does not include zero, the null hypothesis is rejected, otherwise the null hypothesis is accepted when the interval includes zero. Results can also be confirmed using the graphical display of CIs for the difference in means and the p-values reported by the pairwise t-test above.
+#### 1. Ascorbic Acid, 0.5
+##### reject null hypothesis for all 5 other groups
+#### 2. Ascorbic Acid, 1.0
+##### reject null hypothesis for all 5 other groups
+#### 3. Ascorbic Acid, 2.0
+##### reject null hypothesis for Ascorbic Acid, 0.5 ; Ascorbic Acid, 1.0 ; Orange Juice, 0.5
+##### accept null hypothesis for Orange Juice, 1.0 ; Orange Juice, 2.0
+#### 4.  Orange Juice, 0.5
+##### reject null hypothesis for all 5 other groups
+#### 5.  Orange Juice, 1.0
+##### reject null hypothesis for Ascorbic Acid, 0.5 ; Ascorbic Acid, 1.0 ; Orange.Juice_0.5 ; Orange.Juice_2.0
+##### accept null hypothesis for Ascorbic Acid, 2.0
+#### 6.  Orange Juice, 2.0
+##### reject null hypothesis for Ascorbic.Acid 0.5 ; Ascorbic Acid, 1.0 ; Orange Juice, 0.5 ; Orange Juice, 1.0
+##### accept null hypothesis for Ascorbic Acid, 2.0
