@@ -1,0 +1,59 @@
+---
+title: "Practical Machine Learning Project - Human Activity Recognition"
+output: 
+  html_document:
+    toc: yes
+    keep_md: true
+date: '`r format(Sys.time(), "%B %d, %Y")`'
+author: by E. Brian Welch using `r sprintf("%s and knitr version %s", 
+  R.version.string, packageVersion("knitr"))`
+---
+
+```{r setup, echo=FALSE}
+require(knitr)
+opts_chunk$set(echo = FALSE, cache=TRUE, comment="")
+read_chunk('Practical_Machine_Learning_Project.R')
+```
+
+```{r Practical_Machine_Learning_Project_setup, echo=FALSE}
+```
+
+## Project Overview
+The goal of this project is to predict the manner in which a human subject performed a dumbbell (1.25kg) exercise based on accelerometer measurements gathered on a subject's arm, forearm, belt and the dumbbell itself. The Class of excercise included A, B, C, D and E where Class A corresponds to the correct execution of the exercise. The other 4 classes correspond to common mistakes. Exercises were performed by six male participants (age 20-28 years) with limited weight lifting experience. Participants were supervised by an experienced weight lifter to ensure the execution matched the intended simulation manner. Additional study details are available at [http://groupware.les.inf.puc-rio.br/har](http://groupware.les.inf.puc-rio.br/har).
+
+## Data Overview
+Data for the project was provided as two comma-separated-variable files `pml-training.csv` (19,622 observations of 160 variables) and `pml-testing.csv` (20 observations of 160 variables). The last column of `pml-training.csv` is the Class (A, B, C, D or E) of the executed dumbbell exercise. The last column of the `pml-testing.csv` is the "problem_id" of the unknown exercise to be predicted by the model created in this project.
+
+## Data Processing and Prediction Results
+After loading the orginal testing and training data files, only columns related to belt, arm or dumbbell measurements were kept as predictors. Additionally, any columns containing NA or "#DIV/0!" values were excluded as predictors. Applying these constraints yielded 52 predictors. For cross-validation, the provided training observations were subdivided into 11,778 (60%) train and 7,846 (40%) test observations. Due to its widely known robustness and success in real world applications, a random forest predication model was created.
+
+### 1. Load and Transform Data
+```{r Practical_Machine_Learning_Project_section_1, echo=TRUE}
+```
+
+### 2. Prepare for Cross-Validation 
+```{r Practical_Machine_Learning_Project_section_2, echo=TRUE}
+```
+
+### 3. Create a Random Forest Model
+```{r Practical_Machine_Learning_Project_section_3, echo=TRUE}
+```
+
+### 4. Display Plots Describing the Random Forest Model
+```{r Practical_Machine_Learning_Project_section_4, echo=TRUE, fig.width=8, fig.height=8, dpi=120}
+```
+
+### 5. Estimate Out of Sample Error Using Cross-Validation
+```{r Practical_Machine_Learning_Project_section_5, echo=TRUE}
+```
+
+### 6. Predict Using pml-test Data
+```{r Practical_Machine_Learning_Project_section_6, echo=TRUE}
+```
+
+### 7. Write pml-test Predictions to Text Files
+```{r Practical_Machine_Learning_Project_section_7, echo=TRUE}
+```
+
+## Summary
+The created random forest model used 500 trees and achieved classification error of approximately 1% or better for all 5 classes. The most important predictors in the random forest model were `yaw_belt` and `roll_belt`. The estimated OOB (out-of-bag) error was 0.66% which agreed well with the separately cross-validated out of sample error rate estimation of 0.59%. The predictions for the 20 cases in the `pml-testing.csv` file scored 100% correct.
